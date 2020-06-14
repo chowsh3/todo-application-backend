@@ -1,18 +1,16 @@
-'use strict';
+const express = require("express");
+const serverless = require("serverless-http");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-module.exports.handler = async event => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
+const app = express();
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+app.use(cors());
+
+app.get("/tasks", function(req, res) {
+  res.send({ 
+    tasks: ["water plants", "do dishes", "buy oats"] 
+  });
+});
+
+module.exports.handler = serverless(app);

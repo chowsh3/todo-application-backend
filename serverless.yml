@@ -29,4 +29,9 @@ provider:
 
 functions:
   tasks:
-    handler: tasks.hello
+   handler: tasks.handler
+   events:
+    - http:
+        path: tasks
+        method: get
+        cors: true
